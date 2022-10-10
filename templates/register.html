@@ -12,15 +12,12 @@
 
 
     <style>
-        html,
-        body {
+        html,body {
             height: 100%;
         }
 
         body {
-            {% comment %} display: -ms-flexbox; {% endcomment %}
             display: inline;
-            {% comment %} -ms-flex-align: center; {% endcomment %}
             align-items: center;
             padding-top: 40px;
             padding-bottom: 40px;
@@ -100,7 +97,8 @@
         <label for="password" class="sr-only">Password</label>
         <input type="password" id="password" name="password" class="form-control" placeholder="Enter Password" required>
         <label for="re_password" class="sr-only">Re-enter Password</label>
-        <input type="password" id="re_password" name="re_password" class="form-control" placeholder="Re-enter Password" required>
+        <input type="password" id="re_password" name="re_password" class="form-control" placeholder="Re-enter Password"
+            required>
         <p>Already have an account? <a href="login">Login</a></p>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
     </form>
