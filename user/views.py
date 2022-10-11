@@ -18,6 +18,7 @@ def register(request):
             else:
                 entry = Persons(username=name, email=email, password=password)
                 entry.save()
+                messages.success(request, "You have been registered!")
                 return redirect("login")
         else:
             messages.success(request, "Password not matched!")
@@ -91,5 +92,5 @@ def addItem(request):
             quantity = 1
             item = CartItem(productId=Product(productId), userId=userId, quantity=quantity)
             item.save()
-    
-    return redirect("home")
+    link = "/shop/home#"+str(Product(productId))
+    return redirect(link)
