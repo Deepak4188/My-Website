@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block title %}Payment{% endblock title %}
+{% block body %}
+
+
+    <div style="margin-left: 50px; margin-bottom:10px">
+        <h2>Address</h2>
+
+        {% if noOfAddress != 0 %}
+        {% for k in address %}
+        <div class="card col-md-3" style="margin-bottom:10px">
+            <div class="card-body">
+                <h5 class="card-title"><input type="radio" form="form_id" value="{{k.addressId}}" name="addressId" id="addressId" required >Address #{{forloop.counter}}</h5>
+                <p>{{k.fullName}}<br>{{k.phoneNumber}}<br>{{k.houseNo}},
+                    {{k.colony}}<br>{{k.city}}, {{k.pinCode}}<br>{{k.state}}</p>
+            </div>
+        </div>
+        {% endfor %}
+        <input style="margin-top: 10px;" type="button" value="Add new delivery Address" id="newAddress"
+            onclick="address()">
+        {% endif %}
+
+        {% if noOfAddress == 0 %}
+        <input type="button" value="Add delivery Address" id="newAddress" onclick="address()">
+        {% endif %}
+        <div style="width: 300px; display:none;" id="address">
+            <form action="/addAddress" method="POST" class="col-2">
+                {% csrf_token %}
+                <input type="text" name="name" id="name" placeholder="Full Name (Required)*" required
+                    style="width: 200px;"><br><br>
+                <input type="text" name="phone" id="phone" placeholder="Phone Number (Required)*" required
+                    style="width: 200px;"><br><br>
+                <input type="text" name="pin" id="pin" placeholder="Pin Code (Required)*" required
+                    style="width: 200px;"><br><br>
+                <input type="text" name="state" id="state" placeholder="State (Required)*" required
+                    style="width: 200px;"><br><br>
+                <input type="text" name="city" id="city" placeholder="City (Required)*" required
+                    style="width: 200px;"><br><br>
+                <input type="text" name="house" id="pin" placeholder="House No., Building Name (Required)*" required
+                    style="width: 400px;"><br><br>
+                <input type="text" name="area" id="area" placeholder="Road Name, Area, Colony (Required)*" required
+                    style="width: 400px;"><br><br>
+                <h4 style="width: 200px;">Type of address</h4>
+                <div style="width: 63px;">
+                    <input type="radio" name="type" value="Home"> Home
+                    <input type="radio" name="type" value="Work"> Work
+                    <input type="radio" name="type" value="Other"> Other<br>
+                </div>
+                <input type="submit" value="Save" class="btn btn-block btn-secondary"><br><br>
+            </form>
+        </div>
+    </div>
+
+
+
+
+    {% if noOfAddress != 0 %}
+    <div class="container">
+        {% if payment %}
+        <form action="{% url 'paymentStatus' %}" method="POST" id="form_id">
+            {% csrf_token %}
+            <script src="https://checkout.razorpay.com/v1/checkout.js" data-key="rzp_test_4ui8SgVe9QiQQu"
+                data-amount="{{payment.amount}}" data-currency="{{payment.currency}}" data-order_id="{{payment.id}}"
+                data-buttontext="Proceed to Buy" data-name="E-Commerce Website"
+                data-description="Buy Anything, Take Anywhere" data-image="https://media.istockphoto.com/id/1371532213/photo/shopping-cart-on-blue-background-concept-3d-illustration.jpg?s=612x612&w=0&k=20&c=ODch6N-kjWUNy4s6nJAFYnJ2r-KwYgBKzpJft4a6fgs="
+                data-prefill.name="{{payment.name}}" data-prefill.email="{{email}}"
+                data-theme.color="#F37254"></script>
+            <input type="hidden" custom="Hidden Element" name="hidden" />
+        </form>
+        {% endif %}
+    </div>
+    {% endif %}
+ {% endblock body %}

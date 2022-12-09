@@ -3,8 +3,8 @@ from shop.models import Product
 from user.models import Persons
 
 def index(request):
-    # if request.user.is_anonymous:
-    #     return redirect("/login")
+    if request.user.is_anonymous:
+        return redirect("/login")
     person = request.user
     products = Product.objects.all()
     n = len(products)

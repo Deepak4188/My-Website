@@ -134,3 +134,7 @@ AUTH_USER_MODEL = 'user.Persons'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+
+RAZORPAY_API_KEY=''
+RAZORPAY_API_SECRET_KEY=''
